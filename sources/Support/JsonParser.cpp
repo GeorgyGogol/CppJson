@@ -200,13 +200,13 @@ json::ObjectValueType sup::Parser::getNumeric(const char **str, size_t &sizeStr)
 json::JsonBase* sup::Parser::pars(const std::string &str)
 {
     if (!checkString(str)) 
-        throw std::future_error(std::error_code());
+        throw std::future_error(std::future_errc());
 
     json::JsonBase* out = nullptr;
     isCanParse = true;
 
     ParsFunction function = FuncMap.at(str[0]);
-    if (!function) throw std::future_error(std::error_code());
+    if (!function) throw std::future_error(std::future_errc());
 
     const char* charString = str.c_str() + 1;
     size_t size = str.size() - 2;

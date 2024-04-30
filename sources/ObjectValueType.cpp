@@ -4,6 +4,7 @@
 #include <exception>
 #include <future>
 #include <cmath>
+#include <algorithm>
 
 json::ObjectValueType::ObjectValueType()
     : CurrentType(ValueTypes::None)
@@ -353,7 +354,7 @@ int json::ObjectValueType::getInt() const
     case ValueTypes::Null:
     case ValueTypes::None:
     default:
-        throw std::future_error(std::error_code());
+        throw std::future_error(std::future_errc());
     }
 }
 
@@ -373,7 +374,7 @@ double json::ObjectValueType::getDouble() const
     case ValueTypes::Null:
     case ValueTypes::None:
     default:
-        throw std::future_error(std::error_code());
+        throw std::future_error(std::future_errc());
     }
 }
 
@@ -399,7 +400,7 @@ std::string json::ObjectValueType::getStr() const
 
     case ValueTypes::None:
     default:
-        throw std::future_error(std::error_code());
+        throw std::future_error(std::future_errc());
     }
 }
 
@@ -411,7 +412,7 @@ bool json::ObjectValueType::getBool() const
 json::JsonObject& json::ObjectValueType::getJsonObject() const
 {
     if (CurrentType != ValueTypes::JsonObject)
-        throw std::future_error(std::error_code());
+        throw std::future_error(std::future_errc());
 
     return *(static_cast<JsonObject*>(pJson));
 }
@@ -419,7 +420,7 @@ json::JsonObject& json::ObjectValueType::getJsonObject() const
 json::JsonArray& json::ObjectValueType::getJsonArray() const
 {
     if (CurrentType != ValueTypes::JsonArray)
-        throw std::future_error(std::error_code());
+        throw std::future_error(std::future_errc());
 
     return *(static_cast<JsonArray*>(pJson));
 }
