@@ -47,7 +47,7 @@ set(
 
 set(
     H_FILES
-    sources/support/JsonParser.h
+    sources/Support/JsonParser.h
 )
 
 set(
@@ -56,7 +56,7 @@ set(
     sources/JsonFuncs.cpp
     sources/JsonObject.cpp
     sources/ObjectValueType.cpp
-    sources/support/JsonParser.cpp
+    sources/Support/JsonParser.cpp
 )
 
 #
