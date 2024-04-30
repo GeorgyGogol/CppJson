@@ -1,7 +1,8 @@
 #include "JsonParser.h"
 
-#include <future>
+#include <stdexcept>
 #include <regex>
+#include <algorithm>
 
 #include "JsonBase.h"
 #include "JsonObject.h"
@@ -200,13 +201,13 @@ json::ObjectValueType sup::Parser::getNumeric(const char **str, size_t &sizeStr)
 json::JsonBase* sup::Parser::pars(const std::string &str)
 {
     if (!checkString(str)) 
-        throw std::future_error(std::error_code());
+        throw std::runtime_error("Input string is not contains Json object");
 
     json::JsonBase* out = nullptr;
     isCanParse = true;
 
     ParsFunction function = FuncMap.at(str[0]);
-    if (!function) throw std::future_error(std::error_code());
+    if (!function) throw std::runtime_error("Input string is not contains Json object");
 
     const char* charString = str.c_str() + 1;
     size_t size = str.size() - 2;

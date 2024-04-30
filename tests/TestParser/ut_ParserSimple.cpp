@@ -24,7 +24,7 @@ namespace TestParser
             std::string toParse = "";
 
             // Ожидается эксепшн, все верно, поч падает???
-            Assert::ExpectException<std::future_error(std::error_code())>([=]() { json::parseString(toParse); });
+            Assert::ExpectException<std::runtime_error(std::error_code())>([=]() { json::parseString(toParse); });
         }
 
         TEST_METHOD(ParsEmpty)
@@ -156,7 +156,7 @@ namespace TestParser
             std::string toParse = "";
 
             // Ожидается эксепшн, все верно, поч падает???
-            Assert::ExpectException<std::future_error(std::error_code())>([=]() { json::parseString(toParse); });
+            Assert::ExpectException<std::runtime_error(std::error_code())>([=]() { json::parseString(toParse); });
         }
 
         TEST_METHOD(ParsEmpty)

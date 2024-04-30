@@ -64,17 +64,17 @@ namespace TestObjectValueType {
             ObjectValueType o;
             o.setNull();
 
-            Assert::ExpectException<std::future_error>([=]() {o.getInt(); });
-            Assert::ExpectException<std::future_error>([=]() {o.getDouble(); });
+            Assert::ExpectException<std::runtime_error>([=]() {o.getInt(); });
+            Assert::ExpectException<std::runtime_error>([=]() {o.getDouble(); });
             Assert::AreEqual(o.getStr(), std::string("null"));
         }
 
         TEST_METHOD(UnvalideObject) {
             ObjectValueType o;
 
-            Assert::ExpectException<std::future_error>([=]() {o.getInt(); });
-            Assert::ExpectException<std::future_error>([=]() {o.getDouble(); });
-            Assert::ExpectException<std::future_error>([=]() {o.getStr(); });
+            Assert::ExpectException<std::runtime_error>([=]() {o.getInt(); });
+            Assert::ExpectException<std::runtime_error>([=]() {o.getDouble(); });
+            Assert::ExpectException<std::runtime_error>([=]() {o.getStr(); });
         }
 
         TEST_METHOD(BoolObject) {

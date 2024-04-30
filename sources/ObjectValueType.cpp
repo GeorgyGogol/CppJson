@@ -1,8 +1,9 @@
 #include "ObjectValueType.h"
 #include "JsonObject.h"
 #include "JsonArray.h"
+
 #include <exception>
-#include <future>
+#include <stdexcept>
 #include <cmath>
 
 json::ObjectValueType::ObjectValueType()
@@ -151,7 +152,7 @@ json::ObjectValueType::ObjectValueType(const char data[]) noexcept
 bool json::ObjectValueType::operator==(const char data[]) const noexcept
 {
     if (CurrentType != ValueTypes::String) return false;
-    int dataSize = std::find(data, data + int(std::pow(2, sizeof(std::size_t) * 8)), 0) - data;
+    int dataSize = sizeof(data); /// @todo Check this method
 
     if (StrData.size() != dataSize) return false;
 
@@ -353,7 +354,7 @@ int json::ObjectValueType::getInt() const
     case ValueTypes::Null:
     case ValueTypes::None:
     default:
-        throw std::future_error(std::error_code());
+        throw std::runtime_error("Uncorrect Value request");
     }
 }
 
@@ -373,7 +374,7 @@ double json::ObjectValueType::getDouble() const
     case ValueTypes::Null:
     case ValueTypes::None:
     default:
-        throw std::future_error(std::error_code());
+        throw std::runtime_error("Uncorrect Value request");
     }
 }
 
@@ -399,7 +400,7 @@ std::string json::ObjectValueType::getStr() const
 
     case ValueTypes::None:
     default:
-        throw std::future_error(std::error_code());
+        throw std::runtime_error("Uncorrect Value request");
     }
 }
 
@@ -411,7 +412,7 @@ bool json::ObjectValueType::getBool() const
 json::JsonObject& json::ObjectValueType::getJsonObject() const
 {
     if (CurrentType != ValueTypes::JsonObject)
-        throw std::future_error(std::error_code());
+        throw std::runtime_error("Uncorrect Value request");
 
     return *(static_cast<JsonObject*>(pJson));
 }
@@ -419,7 +420,7 @@ json::JsonObject& json::ObjectValueType::getJsonObject() const
 json::JsonArray& json::ObjectValueType::getJsonArray() const
 {
     if (CurrentType != ValueTypes::JsonArray)
-        throw std::future_error(std::error_code());
+        throw std::runtime_error("Uncorrect Value request");
 
     return *(static_cast<JsonArray*>(pJson));
 }
