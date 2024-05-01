@@ -15,7 +15,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 message (STATUS "Runing configure CppJson")
 
 #
-#
+# Set project options
 #
 option(TESTING "Build unit test project" ON)
 option(BUILD_STATIC_LIB "Buid as static lib" OFF)
@@ -79,16 +79,16 @@ target_include_directories(CppJson PRIVATE ${INCULDE_PATH})
 target_sources(CppJson PRIVATE ${H_FILES})
 target_sources(CppJson PRIVATE ${SRC_FILES})
 
-set_target_properties(CppJson PROPERTIES
-    POSITION_INDEPENDENT_CODE ${BUILD_STATIC_LIB}
-)
-
-
-# 
+#
+# Generating export header
+#
 include(GenerateExportHeader)
 generate_export_header(CppJson)
 target_include_directories(CppJson PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
 
+#
+# Creating unit-test project
+#
 if(TESTING)
     message(WARNING "Unit test project is not remaded to CMake")
     # add_subdirectory(tests)
