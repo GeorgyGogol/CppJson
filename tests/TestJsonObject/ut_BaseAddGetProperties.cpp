@@ -1,90 +1,88 @@
-#include <CppUnitTest.h>
+#include "gtest/gtest.h"
 #include "JsonObject.h"
 
-using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace json;
 
-namespace TestJsonObject {
+TEST(TestJsonObject_BaseAddGetProperties, integerProperty)
+{
+    JsonObject o;
+    int testValue = 10;
 
-    TEST_CLASS(BaseAddGetProperties)
-    {
-    public:
-        TEST_METHOD(integerProperty) {
-            JsonObject o;
-            int testValue = 10;
-
-            o.add("Test1", testValue);
-            Assert::AreEqual(1, o.count(), L"There are must be only one added property");
+    o.add("Test1", testValue);
+    ASSERT_EQ(1, o.count()) << "There are must be only one added property";
             
-            int res = o.get("Test1").getInt();
-            Assert::AreEqual(testValue, res, L"Return value don't equal input value");
-        }
+    int res = o.get("Test1").getInt();
+    ASSERT_EQ(testValue, res) << "Return value don't equal input value";
+}
 
-        TEST_METHOD(integerProperty_raw) {
-            JsonObject o;
+TEST(TestJsonObject_BaseAddGetProperties, integerProperty_raw)
+{
+    JsonObject o;
 
-            o.add("Test1", 10);
-            Assert::AreEqual(1, o.count(), L"There are must be only one added property");
+    o.add("Test1", 10);
+    ASSERT_EQ(1, o.count()) << "There are must be only one added property";
             
-            int res = o.get("Test1").getInt();
-            Assert::AreEqual(10, res, L"Return value don't equal input value");
-        }
+    int res = o.get("Test1").getInt();
+    ASSERT_EQ(10, res) << "Return value don't equal input value";
+}
 
-        TEST_METHOD(doubleProperty) {
-            JsonObject o;
-            double testValue = 10;
+TEST(TestJsonObject_BaseAddGetProperties, doubleProperty)
+{
+    JsonObject o;
+    double testValue = 10;
 
-            o.add("Test1", testValue);
-            Assert::AreEqual(1, o.count(), L"There are must be only one added property");
+    o.add("Test1", testValue);
+    ASSERT_EQ(1, o.count()) << "There are must be only one added property";
 
-            double res = o.get("Test1").getDouble();
-            Assert::AreEqual(testValue, res, L"Return value don't equal input value");
-        }
+    double res = o.get("Test1").getDouble();
+    ASSERT_EQ(testValue, res) << "Return value don't equal input value";
+}
 
-        TEST_METHOD(stringProperty) {
-            JsonObject o;
-            std::string testValue = "SomeString";
+TEST(TestJsonObject_BaseAddGetProperties, stringProperty)
+{
+    JsonObject o;
+    std::string testValue = "SomeString";
 
-            o.add("Test1", testValue);
-            Assert::AreEqual(1, o.count(), L"There are must be only one added property");
+    o.add("Test1", testValue);
+    ASSERT_EQ(1, o.count()) << "There are must be only one added property";
 
-            std::string res = o.get("Test1").getStr();
-            Assert::AreEqual(testValue, res, L"Return value don't equal input value");
-        }
+    std::string res = o.get("Test1").getStr();
+    ASSERT_EQ(testValue, res) << "Return value don't equal input value";
+}
 
-        TEST_METHOD(nullProperty) {
-            JsonObject o;
-            ObjectValueType n;
-            n.setNull();
+TEST(TestJsonObject_BaseAddGetProperties, nullProperty)
+{
+    JsonObject o;
+    ObjectValueType n;
+    n.setNull();
 
-            o.add("Test1", n);
-            Assert::AreEqual(1, o.count(), L"There are must be only one added property");
+    o.add("Test1", n);
+    ASSERT_EQ(1, o.count()) << "There are must be only one added property";
 
-            Assert::IsTrue(o.get("Test1").isNull(), L"Return value don't equal input value");
-        }
+    ASSERT_TRUE(o.get("Test1").isNull()) << "Return value don't equal input value";
+}
 
-        TEST_METHOD(nullProperty_pureAdding) {
-            JsonObject o;
+TEST(TestJsonObject_BaseAddGetProperties, nullProperty_pureAdding)
+{
+    JsonObject o;
 
-            o.add("Test");
-            Assert::AreEqual(1, o.count(), L"There are must be only one added property");
+    o.add("Test");
+    ASSERT_EQ(1, o.count()) << "There are must be only one added property";
 
-            std::string res = o.get("Test").getStr();
-            Assert::AreEqual("null", res.c_str(), L"Return value don't equal input value");
-            Assert::IsTrue(o.get("Test").isNull(), L"Input value must change internal state to null");
-        }
+    std::string res = o.get("Test").getStr();
+    ASSERT_EQ("null", res.c_str()) << "Return value don't equal input value";
+    ASSERT_TRUE(o.get("Test").isNull()) << "Input value must change internal state to null";
+}
 
-        TEST_METHOD(isExistProperty) {
-            JsonObject o;
-            std::string testValue = "SomeString";
+TEST(TestJsonObject_BaseAddGetProperties, isExistProperty)
+{
+    JsonObject o;
+    std::string testValue = "SomeString";
 
-            o.add(testValue, testValue);
-            Assert::AreEqual(1, o.count(), L"There are must be only one added property");
+    o.add(testValue, testValue);
+    ASSERT_EQ(1, o.count()) << "There are must be only one added property";
 
-            Assert::IsTrue(o.isExists(testValue));
-            Assert::IsFalse(o.isExists("SomeAnotherProperty"));
-        }
-    };
-
+    ASSERT_TRUE(o.isExists(testValue));
+    ASSERT_FALSE(o.isExists("SomeAnotherProperty"));
 }
 
