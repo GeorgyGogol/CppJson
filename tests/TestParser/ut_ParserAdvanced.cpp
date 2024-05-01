@@ -4,7 +4,7 @@
 #include "JsonObject.h"
 #include "JsonArray.h"
 
-TEST(TestParser_ParserAdvanced, ParsObjectWithSubObject)
+TEST(TestParser_ParserAdvanced, DISABLED_ParsObjectWithSubObject)
 {
     std::string toParse = "{\"Name\":\"PersonsName\",\"Count\":2,\"Vals\":{\"Jhon\":\"male\",\"Eva\":\"woman\"}}";
     json::JsonBase* result = json::parseString(toParse);

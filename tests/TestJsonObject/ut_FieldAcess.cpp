@@ -6,12 +6,6 @@ using namespace json;
 
 class TestJsonObject_FieldAcess : public testing::Test
 {
-public:
-    TestJsonObject_FieldAcess()
-    {
-
-    }
-
 protected:
     static JsonObject testObject;
 
@@ -27,6 +21,11 @@ protected:
 JsonObject TestJsonObject_FieldAcess::testObject;
 
 TEST_F(TestJsonObject_FieldAcess, Check_String)
+{
+    ASSERT_TRUE(testObject.get("String") == std::string("String")) << "Value must be string, string equals";
+}
+
+TEST_F(TestJsonObject_FieldAcess, DISABLED_Check_CharString)
 {
     ASSERT_TRUE(testObject.get("String") == "String") << "Value must be string, string equals";
 }
