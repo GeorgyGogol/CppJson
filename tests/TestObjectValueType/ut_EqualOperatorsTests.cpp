@@ -1,142 +1,139 @@
-#include <CppUnitTest.h>
+#include "gtest/gtest.h"
 #include "ObjectValueType.h"
 #include <string>
 
-using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace json;
 
-namespace TestObjectValueType {
+TEST(TestObjectValueType_EqualOperatorsTests, OnlyIntCheck) 
+{
+    ObjectValueType t1;
+    int checkValue = 5;
+    t1 = checkValue;
+    ASSERT_TRUE(t1 == checkValue);
+    ASSERT_FALSE(t1 != checkValue);
+}
 
-    TEST_CLASS(EqualOperatorsTests)
-    {
-    public:
-        TEST_METHOD(EqualsOnlyIntCheck) {
-            ObjectValueType t1;
-            int checkValue = 5;
-            t1 = checkValue;
-            Assert::IsTrue(t1 == checkValue);
-            Assert::IsFalse(t1 != checkValue);
-        }
+TEST(TestObjectValueType_EqualOperatorsTests, OnlyDoubleCheck) 
+{
+    ObjectValueType t1;
+    double checkValue = 15.149456;
+    t1 = checkValue;
+    ASSERT_TRUE(t1 == checkValue);
+    ASSERT_FALSE(t1 != checkValue);
+}
 
-        TEST_METHOD(EqualsOnlyDoubleCheck) {
-            ObjectValueType t1;
-            double checkValue = 15.149456;
-            t1 = checkValue;
-            Assert::IsTrue(t1 == checkValue);
-            Assert::IsFalse(t1 != checkValue);
-        }
+TEST(TestObjectValueType_EqualOperatorsTests, OnlyStrCheck) 
+{
+    ObjectValueType t1;
+    std::string checkValue = "SomeString";
+    t1 = checkValue;
+    ASSERT_TRUE(t1 == checkValue);
+    ASSERT_FALSE(t1 != checkValue);
+}
 
-        BEGIN_TEST_METHOD_ATTRIBUTE(EqualOnlyStrCheck)
-            //TEST_IGNORE()
-        END_TEST_METHOD_ATTRIBUTE()
-        TEST_METHOD(EqualOnlyStrCheck) {
-            ObjectValueType t1;
-            std::string checkValue = "SomeString";
-            t1 = checkValue;
-            Assert::IsTrue(t1 == checkValue);
-            Assert::IsFalse(t1 != checkValue);
-        }
+TEST(TestObjectValueType_EqualOperatorsTests, ObjectsCase01) 
+{
+    ObjectValueType t1, t2, t3;
+    int checkValue1 = 5;
+    t1 = checkValue1;
+    t2 = checkValue1;
 
-        TEST_METHOD(EqualObjects) {
-            ObjectValueType t1, t2, t3;
-            int checkValue1 = 5;
-            t1 = checkValue1;
-            t2 = checkValue1;
+    ASSERT_TRUE(t1 == t2);
+    ASSERT_FALSE(t1 != t2);
 
-            Assert::IsTrue(t1 == t2);
-            Assert::IsFalse(t1 != t2);
+    ASSERT_FALSE(t1 == t3);
+    ASSERT_TRUE(t1 != t3);
+    ASSERT_FALSE(t2 == t3);
+    ASSERT_TRUE(t2 != t3);
+}
 
-            Assert::IsFalse(t1 == t3);
-            Assert::IsTrue(t1 != t3);
-            Assert::IsFalse(t2 == t3);
-            Assert::IsTrue(t2 != t3);
-        }
+TEST(TestObjectValueType_EqualOperatorsTests, ObjectsCase02) 
+{
+    ObjectValueType t1, t2, t3;
+    int checkValue1 = 5;
+    t1 = checkValue1;
+    t2 = checkValue1;
+    t3 = "SomeString";
 
-        TEST_METHOD(EqualObjects2) {
-            ObjectValueType t1, t2, t3;
-            int checkValue1 = 5;
-            t1 = checkValue1;
-            t2 = checkValue1;
-            t3 = "SomeString";
+    ASSERT_TRUE(t1 == t2);
+    ASSERT_FALSE(t1 != t2);
 
-            Assert::IsTrue(t1 == t2);
-            Assert::IsFalse(t1 != t2);
+    ASSERT_FALSE(t1 == t3);
+    ASSERT_TRUE(t1 != t3);
+    ASSERT_FALSE(t2 == t3);
+    ASSERT_TRUE(t2 != t3);
+}
 
-            Assert::IsFalse(t1 == t3);
-            Assert::IsTrue(t1 != t3);
-            Assert::IsFalse(t2 == t3);
-            Assert::IsTrue(t2 != t3);
-        }
+TEST(TestObjectValueType_EqualOperatorsTests, ObjectsCase03) 
+{
+    ObjectValueType t1, t2, t3;
+    int checkValue1 = 5;
+    t1 = checkValue1;
+    t2 = checkValue1;
+    t3 = 12.5;
 
-        TEST_METHOD(EqualObjects3) {
-            ObjectValueType t1, t2, t3;
-            int checkValue1 = 5;
-            t1 = checkValue1;
-            t2 = checkValue1;
-            t3 = 12.5;
+    ASSERT_TRUE(t1 == t2);
+    ASSERT_FALSE(t1 != t2);
 
-            Assert::IsTrue(t1 == t2);
-            Assert::IsFalse(t1 != t2);
+    ASSERT_FALSE(t1 == t3);
+    ASSERT_TRUE(t1 != t3);
+    ASSERT_FALSE(t2 == t3);
+    ASSERT_TRUE(t2 != t3);
+}
 
-            Assert::IsFalse(t1 == t3);
-            Assert::IsTrue(t1 != t3);
-            Assert::IsFalse(t2 == t3);
-            Assert::IsTrue(t2 != t3);
-        }
+TEST(TestObjectValueType_EqualOperatorsTests, ObjectsCase04) 
+{
+    ObjectValueType t1, t2, t3;
+    int checkValue1 = 5;
+    t1 = checkValue1;
+    t2 = checkValue1;
+    t3 = 5.0;
 
-        TEST_METHOD(EqualObjects4) {
-            ObjectValueType t1, t2, t3;
-            int checkValue1 = 5;
-            t1 = checkValue1;
-            t2 = checkValue1;
-            t3 = 5.0;
+    ASSERT_TRUE(t1 == t2);
+    ASSERT_FALSE(t1 != t2);
 
-            Assert::IsTrue(t1 == t2);
-            Assert::IsFalse(t1 != t2);
+    ASSERT_FALSE(t1 == t3);
+    ASSERT_TRUE(t1 != t3);
+    ASSERT_FALSE(t2 == t3);
+    ASSERT_TRUE(t2 != t3);
+}
 
-            Assert::IsFalse(t1 == t3);
-            Assert::IsTrue(t1 != t3);
-            Assert::IsFalse(t2 == t3);
-            Assert::IsTrue(t2 != t3);
-        }
+TEST(TestObjectValueType_EqualOperatorsTests, NotEqualObjects)
+{
+    ObjectValueType t1, t2;
+    t1 = 4;
+    t2 = "someString";
 
-        TEST_METHOD(NotEqualObjects) {
-            ObjectValueType t1, t2;
-            t1 = 4;
-            t2 = "someString";
+    ASSERT_FALSE(t1 == t2);
+    ASSERT_TRUE(t1 != t2);
+}
 
-            Assert::IsFalse(t1 == t2);
-            Assert::IsTrue(t1 != t2);
-        }
+TEST(TestObjectValueType_EqualOperatorsTests, OnlyBool) 
+{
+    ObjectValueType t;
+    t = false;
 
-        TEST_METHOD(EqualsOnlyBool) {
-            ObjectValueType t;
-            t = false;
+    ASSERT_FALSE(t == true);
+    ASSERT_TRUE(t == false);
 
-            Assert::IsFalse(t == true);
-            Assert::IsTrue(t == false);
-            
-            Assert::IsTrue(t != true);
-            Assert::IsFalse(t != false);
-        }
+    ASSERT_TRUE(t != true);
+    ASSERT_FALSE(t != false);
+}
 
-        TEST_METHOD(EqualObjects5_Boolean) {
-            ObjectValueType t1, t2, t3;
-            bool checkValue1 = true;
-            t1 = checkValue1;
-            t2 = checkValue1;
-            t3 = !checkValue1;
+TEST(TestObjectValueType_EqualOperatorsTests, ObjectsCase05_Boolean) 
+{
+    ObjectValueType t1, t2, t3;
+    bool checkValue1 = true;
+    t1 = checkValue1;
+    t2 = checkValue1;
+    t3 = !checkValue1;
 
-            Assert::IsTrue(t1 == t2);
-            Assert::IsFalse(t1 != t2);
+    ASSERT_TRUE(t1 == t2);
+    ASSERT_FALSE(t1 != t2);
 
-            Assert::IsFalse(t1 == t3);
-            Assert::IsTrue(t1 != t3);
-            Assert::IsFalse(t2 == t3);
-            Assert::IsTrue(t2 != t3);
-        }
-
-    };
-
+    ASSERT_FALSE(t1 == t3);
+    ASSERT_TRUE(t1 != t3);
+    ASSERT_FALSE(t2 == t3);
+    ASSERT_TRUE(t2 != t3);
 }
 

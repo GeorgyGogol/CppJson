@@ -1,74 +1,71 @@
-#include <CppUnitTest.h>
+#include "gtest/gtest.h"
 #include "ObjectValueType.h"
 #include "JsonObject.h"
 #include "JsonArray.h"
 #include "ValideMethods.h"
 #include <string>
 
-using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace json;
 
-namespace TestObjectValueType {
+class TestObjectValueType_ValuesWithJsonObject : public testing::Test
+{
+protected:
+    t_utils::ValideMethods ValideMethodsCheck;
+};
 
-    TEST_CLASS(ValuesWithJsonObject)
+TEST_F(TestObjectValueType_ValuesWithJsonObject, BaseCreatingWithJsonObject)
+{
+    JsonObject o;
+    o.add("Test");
+
+    ObjectValueType ot(o);
+
+    ValideMethodsCheck.CheckConditionMethods(ot, ValideMethodsCheck.getJsonObjectConditions());
+}
+
+TEST_F(TestObjectValueType_ValuesWithJsonObject, CreateAndDeleteWithJsonObject)
+{
+    ObjectValueType ot;
+
     {
-    private:
-        ValideMethods ValideMethodsCheck;
+        JsonObject o;
+        o.add("Test");
 
-    public:
-        TEST_METHOD(BaseCreatingWithJsonObject) {
-            JsonObject o;
-            o.add("Test");
+        ot = ObjectValueType(o);
 
-            ObjectValueType ot(o);
+    }
 
-            ValideMethodsCheck.CheckConditionMethods(ot, ValideMethodsCheck.getJsonObjectConditions());
-        }
+    ValideMethodsCheck.CheckConditionMethods(ot, ValideMethodsCheck.getJsonObjectConditions());
 
-        TEST_METHOD(CreateAndDeleteWithJsonObject) {
-            ObjectValueType ot;
+    JsonObject res = ot.getJsonObject();
+    ASSERT_EQ(1, res.count());
+}
 
-            {
-                JsonObject o;
-                o.add("Test");
+TEST_F(TestObjectValueType_ValuesWithJsonObject, BaseCreatingWithJsonArray)
+{
+    JsonArray o;
+    o.add("Test");
 
-                ot = ObjectValueType(o);
+    ObjectValueType ot(o);
 
-            }
+    ValideMethodsCheck.CheckConditionMethods(ot, ValideMethodsCheck.getJsonArrayConditions());
+}
 
-            ValideMethodsCheck.CheckConditionMethods(ot, ValideMethodsCheck.getJsonObjectConditions());
+TEST_F(TestObjectValueType_ValuesWithJsonObject, CreateAndDeleteWithJsonArray)
+{
+    ObjectValueType ot;
 
-            JsonObject res = ot.getJsonObject();
-            Assert::AreEqual(1, res.count());
-        }
+    {
+        JsonArray o;
+        o.add("Test");
 
-        TEST_METHOD(BaseCreatingWithJsonArray) {
-            JsonArray o;
-            o.add("Test");
+        ot = ObjectValueType(o);
 
-            ObjectValueType ot(o);
+    }
 
-            ValideMethodsCheck.CheckConditionMethods(ot, ValideMethodsCheck.getJsonArrayConditions());
-        }
+    ValideMethodsCheck.CheckConditionMethods(ot, ValideMethodsCheck.getJsonArrayConditions());
 
-        TEST_METHOD(CreateAndDeleteWithJsonArray) {
-            ObjectValueType ot;
-
-            {
-                JsonArray o;
-                o.add("Test");
-
-                ot = ObjectValueType(o);
-
-            }
-
-            ValideMethodsCheck.CheckConditionMethods(ot, ValideMethodsCheck.getJsonArrayConditions());
-
-            JsonArray res = ot.getJsonArray();
-            Assert::AreEqual(1, res.count());
-        }
-
-    };
-
+    JsonArray res = ot.getJsonArray();
+    ASSERT_EQ(1, res.count());
 }
 

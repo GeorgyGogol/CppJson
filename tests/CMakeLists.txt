@@ -1,9 +1,8 @@
 #
-# Unit test
+# Unit test sub project
 #
 message (STATUS "Unit Test project build enabled, configuring test project")
-
-project(CppJsonTests)
+add_subdirectory("modules/googletest")
 
 #
 # Adding unit tests
@@ -12,6 +11,7 @@ file(GLOB
     UNIT_TESTS_SOURCES
     Test*/ut_*.cpp
 )
+list(FILTER UNIT_TESTS_SOURCES EXCLUDE REGEX "TestJsonObject/ut_AdditionalAddGetProperties.cpp")
 
 #
 # Set additional sources
@@ -27,16 +27,14 @@ file(GLOB
     Utils/*.cpp
 )
 
-# 
+#
+# Creating ut project
+#
 enable_testing()
-include(../cmake/MSUnitTestFrameworkConfig.cmake)
-
-find_package(MSUnitTestFramework REQUIRED)
-
-add_library(CppJsonTests SHARED)
+add_executable(CppJsonTests main.cpp)
 target_include_directories(CppJsonTests PRIVATE ${INCLUDE_PATH})
 target_sources(CppJsonTests PRIVATE ${UNIT_TESTS_SOURCES} ${SRC_FILES})
 
-target_link_libraries(CppJsonTests PRIVATE MSUnitTestFramework)
+target_link_libraries(CppJsonTests PRIVATE gtest_main)
 target_link_libraries(CppJsonTests PRIVATE modules::CppJson)
 

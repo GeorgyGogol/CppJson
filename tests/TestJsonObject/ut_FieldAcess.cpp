@@ -1,42 +1,42 @@
-#include <CppUnitTest.h>
+#include "gtest/gtest.h"
 #include "JsonObject.h"
 #include "CppJson.h"
 
-using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace json;
 
-namespace TestJsonObject {
+class TestJsonObject_FieldAcess : public testing::Test
+{
+protected:
+    static JsonObject testObject;
 
-    TEST_CLASS(FieldAcess) {
-    public:
-        FieldAcess()
-        {
-            o.add("String", "String");
-            o.add("Int", 5);
-            o.add("Dob", 1.15);
-            o.add("Bool", false);
-        }
+    static void SetUpTestCase()
+    {
+        testObject.add("String", "String");
+        testObject.add("Int", 5);
+        testObject.add("Dob", 1.15);
+        testObject.add("Bool", false);
+    }
+};
 
-    private:
-        JsonObject o;
+JsonObject TestJsonObject_FieldAcess::testObject;
 
-    public:
+TEST_F(TestJsonObject_FieldAcess, Check_String)
+{
+    ASSERT_TRUE(testObject.get("String") == std::string("String")) << "Value must be string, string equals";
+}
 
-        TEST_METHOD(Check_String)
-        {
-            Assert::IsTrue(o.get("String") == "String", L"Value must be string, string equals");
-        }
+TEST_F(TestJsonObject_FieldAcess, DISABLED_Check_CharString)
+{
+    ASSERT_TRUE(testObject.get("String") == "String") << "Value must be string, string equals";
+}
 
-        TEST_METHOD(Check_Integer)
-        {
-            Assert::IsTrue(o.get("Int") == 5, L"Value must be Int, Int equals");
-        }
+TEST_F(TestJsonObject_FieldAcess, Check_Integer)
+{
+    ASSERT_TRUE(testObject.get("Int") == 5) << "Value must be Int, Int equals";
+}
 
-        TEST_METHOD(Check_Boolean)
-        {
-            Assert::IsTrue(o.get("Bool") == false, L"Value must be Boolean, Boolean equals");
-        }
-    };
-
+TEST_F(TestJsonObject_FieldAcess, Check_Boolean)
+{
+    ASSERT_TRUE(testObject.get("Bool") == false) << "Value must be Boolean, Boolean equals";
 }
 

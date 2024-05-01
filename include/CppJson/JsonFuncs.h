@@ -17,7 +17,7 @@ namespace json
     /// @version 0.1.0
     /// @param Строка, которую нужно распарсерить
     /// @return Json-объект
-    /// @todo Ошибка парсинга
+    /// @todo 6: Ошибка парсинга
     CPPJSON_EXPORT JsonBase* parseString(const std::string&);
 
 }

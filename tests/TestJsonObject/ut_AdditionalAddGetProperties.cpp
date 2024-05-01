@@ -1,10 +1,9 @@
-#include <CppUnitTest.h>
+#include "gtest/gtest.h"
 #include "JsonObject.h"
 #include "JsonFuncs.h"
 
 #include <string>
 
-using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace json;
 
 namespace TestJsonObject {
@@ -46,10 +45,10 @@ namespace TestJsonObject {
             }
 
             test.add("Props", subJson);
-            Assert::AreEqual(2, test.count(), L"Some property was lost, count not equal total input properties");
+            ASSERT_EQ(2, test.count(), L"Some property was lost, count not equal total input properties");
 
             std::string result = test.toString();
-            Assert::AreEqual(examples.getCorrectJsonString(), result, L"The generated string does not match the expected value");
+            ASSERT_EQ(examples.getCorrectJsonString(), result, L"The generated string does not match the expected value");
         }
         */
 
@@ -59,15 +58,15 @@ namespace TestJsonObject {
             ExampleKeeper examples("AdditionalJson_1");
 
             JsonObject test = json::parseString(examples.getCorrectJsonString());
-            Assert::AreEqual(2, test.count(), L"Some property was lost, count parsed properties not equal total input properties");
+            ASSERT_EQ(2, test.count(), L"Some property was lost, count parsed properties not equal total input properties");
 
-            Assert::AreEqual("Test1", test.get("Name"));
+            ASSERT_EQ("Test1", test.get("Name"));
 
             JsonObject subJson = test.get("Props");
-            Assert::AreEqual(examples.getCount(), subJson.count());
+            ASSERT_EQ(examples.getCount(), subJson.count());
             for (int i = 0; i < subJson.count(); ++i) {
-                Assert::IsTrue(subJson.isExists(examples.getPropName(i)));
-                Assert::AreEqual(examples.getPropVal(i), subJson.get(examples.getPropName(i)));
+                ASSERT_TRUE(subJson.isExists(examples.getPropName(i)));
+                ASSERT_EQ(examples.getPropVal(i), subJson.get(examples.getPropName(i)));
             }
         }
         */

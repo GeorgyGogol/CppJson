@@ -1,0 +1,4 @@
+[submodule "tests/modules/googletest"]
+	path = tests/modules/googletest
+	url = git@github.com:google/googletest.git
+	branch = main
