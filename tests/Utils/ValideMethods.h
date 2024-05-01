@@ -4,7 +4,7 @@
 #include <string>
 #include "ObjectValueType.h"
 
-namespace TestObjectValueType {
+namespace t_utils {
 
     class ValideMethods {
     private:

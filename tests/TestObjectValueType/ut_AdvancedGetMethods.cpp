@@ -1,92 +1,87 @@
-#include <CppUnitTest.h>
+#include "gtest/gtest.h"
 #include "ObjectValueType.h"
 #include <string>
-#include <future>
+#include <stdexcept>
 
-using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace json;
 
-namespace TestObjectValueType {
+TEST(TestObjectValueType_AdvancedGetMethods, IntegerValue)
+{
+    int testValue = 5;
+    ObjectValueType o = testValue;
 
-    TEST_CLASS(AdvancedGetMethods)
-    {
-    private:
+    ASSERT_EQ(o.getInt(), testValue);
+    ASSERT_EQ(o.getDouble(), double(testValue));
+    ASSERT_EQ(o.getStr(), std::to_string(testValue));
+}
 
-    public:
-        TEST_METHOD(IntegerValue) {
-            int testValue = 5;
-            ObjectValueType o = testValue;
+TEST(TestObjectValueType_AdvancedGetMethods, DoubleValue)
+{
+    double testValue = 5.15;
+    ObjectValueType o = testValue;
 
-            Assert::AreEqual(o.getInt(), testValue);
-            Assert::AreEqual(o.getDouble(), double(testValue));
-            Assert::AreEqual(o.getStr(), std::to_string(testValue));
-        }
+    ASSERT_EQ(o.getInt(), int(testValue));
+    ASSERT_EQ(o.getDouble(), testValue);
+    ASSERT_EQ(o.getStr(), std::to_string(testValue));
+}
 
-        TEST_METHOD(DoubleValue) {
-            double testValue = 5.15;
-            ObjectValueType o = testValue;
+TEST(TestObjectValueType_AdvancedGetMethods, StringValue_Integer)
+{
+    int testNumber = 4;
+    std::string testStrnig = std::to_string(testNumber);
+    ObjectValueType o = testStrnig;
 
-            Assert::AreEqual(o.getInt(), int(testValue));
-            Assert::AreEqual(o.getDouble(), testValue);
-            Assert::AreEqual(o.getStr(), std::to_string(testValue));
-        }
+    ASSERT_EQ(o.getInt(), testNumber);
+    ASSERT_EQ(o.getDouble(), double(testNumber));
+    ASSERT_EQ(o.getStr(), testStrnig);
+}
 
-        TEST_METHOD(StringValue_Integer) {
-            int testNumber = 4;
-            std::string testStrnig = std::to_string(testNumber);
-            ObjectValueType o = testStrnig;
+TEST(TestObjectValueType_AdvancedGetMethods, StringValue_Double)
+{
+    double testNumber = 4.5;
+    std::string testStrnig = std::to_string(testNumber);
+    ObjectValueType o = testStrnig;
 
-            Assert::AreEqual(o.getInt(), testNumber);
-            Assert::AreEqual(o.getDouble(), double(testNumber));
-            Assert::AreEqual(o.getStr(), testStrnig);
-        }
+    ASSERT_EQ(o.getInt(), int(testNumber));
+    ASSERT_EQ(o.getDouble(), testNumber);
+    ASSERT_EQ(o.getStr(), testStrnig);
+}
 
-        TEST_METHOD(StringValue_Double) {
-            double testNumber = 4.5;
-            std::string testStrnig = std::to_string(testNumber);
-            ObjectValueType o = testStrnig;
+TEST(TestObjectValueType_AdvancedGetMethods, StringValue_String)
+{
+    std::string testStrnig = "SomeText";
+    ObjectValueType o = testStrnig;
 
-            Assert::AreEqual(o.getInt(), int(testNumber));
-            Assert::AreEqual(o.getDouble(), testNumber);
-            Assert::AreEqual(o.getStr(), testStrnig);
-        }
+    ASSERT_THROW([=]() {o.getInt(); }, std::invalid_argument);
+    ASSERT_THROW([=]() {o.getDouble(); }, std::invalid_argument);
+    ASSERT_EQ(o.getStr(), testStrnig);
+}
 
-        TEST_METHOD(StringValue_String) {
-            std::string testStrnig = "SomeText";
-            ObjectValueType o = testStrnig;
+TEST(TestObjectValueType_AdvancedGetMethods, NullObject)
+{
+    ObjectValueType o;
+    o.setNull();
 
-            Assert::ExpectException<std::invalid_argument>([=]() {o.getInt(); });
-            Assert::ExpectException<std::invalid_argument>([=]() {o.getDouble(); });
-            Assert::AreEqual(o.getStr(), testStrnig);
-        }
+    ASSERT_THROW([=]() {o.getInt(); }, std::runtime_error);
+    ASSERT_THROW([=]() {o.getDouble(); }, std::runtime_error);
+    ASSERT_EQ(o.getStr(), std::string("null"));
+}
 
-        TEST_METHOD(NullObject) {
-            ObjectValueType o;
-            o.setNull();
+TEST(TestObjectValueType_AdvancedGetMethods, UnvalideObject)
+{
+    ObjectValueType o;
 
-            Assert::ExpectException<std::runtime_error>([=]() {o.getInt(); });
-            Assert::ExpectException<std::runtime_error>([=]() {o.getDouble(); });
-            Assert::AreEqual(o.getStr(), std::string("null"));
-        }
+    ASSERT_THROW([=]() {o.getInt(); }, std::runtime_error);
+    ASSERT_THROW([=]() {o.getDouble(); }, std::runtime_error);
+    ASSERT_THROW([=]() {o.getStr(); }, std::runtime_error);
+}
 
-        TEST_METHOD(UnvalideObject) {
-            ObjectValueType o;
+TEST(TestObjectValueType_AdvancedGetMethods, BoolObject)
+{
+    bool testBool = true;
+    ObjectValueType o = testBool;
 
-            Assert::ExpectException<std::runtime_error>([=]() {o.getInt(); });
-            Assert::ExpectException<std::runtime_error>([=]() {o.getDouble(); });
-            Assert::ExpectException<std::runtime_error>([=]() {o.getStr(); });
-        }
-
-        TEST_METHOD(BoolObject) {
-            bool testBool = true;
-            ObjectValueType o = testBool;
-
-            Assert::IsTrue(o.isBool());
-            Assert::AreEqual(testBool, o.getBool());
-        }
-
-
-    };
-
+    ASSERT_TRUE(o.isBool());
+    ASSERT_EQ(testBool, o.getBool());
 }
 

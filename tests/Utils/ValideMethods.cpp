@@ -1,9 +1,7 @@
 #include "ValideMethods.h"
-#include <CppUnitTest.h>
+#include "gtest/gtest.h"
 
-using namespace Microsoft::VisualStudio::CppUnitTestFramework;
-
-TestObjectValueType::ValideMethods::ValideMethods()
+t_utils::ValideMethods::ValideMethods()
     : NotValideConditions(new bool[nConditions] { false, false, false, false, false, false, false })
     , NullConditions(new bool[nConditions] { true, true, false, false, false, false, false })
     , NumberConditions(new bool[nConditions] { true, false, true, false, false, false, false })
@@ -22,10 +20,10 @@ TestObjectValueType::ValideMethods::ValideMethods()
     Methods.get()[6] = &json::ObjectValueType::isBool;
 }
 
-void TestObjectValueType::ValideMethods::CheckConditionMethods(const json::ObjectValueType& o, bool* conditions)
+void t_utils::ValideMethods::CheckConditionMethods(const json::ObjectValueType& o, bool* conditions)
 {
     for (int i = 0; i < nConditions; ++i) {
-        Assert::AreEqual(conditions[i], (o.*(Methods.get()[i]))());
+        ASSERT_EQ(conditions[i], (o.*(Methods.get()[i]))() );
     }
 }
 
