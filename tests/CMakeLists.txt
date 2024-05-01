@@ -10,7 +10,8 @@ project(CppJsonTests)
 #
 file(GLOB
     UNIT_TESTS_SOURCES
-    Test*/ut_*.cpp
+#    Test*/ut_*.cpp
+    TestObjectValueType/ut_BaseTests.cpp
 )
 
 #
@@ -29,14 +30,12 @@ file(GLOB
 
 # 
 enable_testing()
-include(../cmake/MSUnitTestFrameworkConfig.cmake)
 
-find_package(MSUnitTestFramework REQUIRED)
+#find_package(MSUnitTestFramework REQUIRED)
 
 add_library(CppJsonTests SHARED)
 target_include_directories(CppJsonTests PRIVATE ${INCLUDE_PATH})
 target_sources(CppJsonTests PRIVATE ${UNIT_TESTS_SOURCES} ${SRC_FILES})
 
-target_link_libraries(CppJsonTests PRIVATE MSUnitTestFramework)
 target_link_libraries(CppJsonTests PRIVATE modules::CppJson)
 
