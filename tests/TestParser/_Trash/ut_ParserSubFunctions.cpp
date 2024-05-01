@@ -1,9 +1,8 @@
-#include <CppUnitTest.h>
+#include "gtest/gtest.h"
 //#include "SupFunctions.h"
 
 #include <string>
 
-using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 //using namespace sup::pars;
 //using namespace json;
 
@@ -22,7 +21,7 @@ namespace TestParser
             std::string test = "{\"Name\":\"PersonsName\",\"Count\":2,\"Vals\":{\"Jhon\":\"male\",\"Eva\":\"woman\"}}";
             int correct = test.size();
 
-            //Assert::AreEqual(correct, sup::pars::seekEndOfSub(test.c_str(), test.size(), '{', '}'));
+            //ASSERT_EQ(correct, sup::pars::seekEndOfSub(test.c_str(), test.size(), '{', '}'));
 
         }
 

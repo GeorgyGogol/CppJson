@@ -17,8 +17,8 @@ message (STATUS "Runing configure CppJson")
 #
 # Set project options
 #
-option(TESTING "Build unit test project" ON)
-option(BUILD_STATIC_LIB "Buid as static lib" OFF)
+option(CPPJSON_TESTING "Build unit test project" ON)
+option(CPPJSON_STATIC_LIB "Buid as static lib" OFF)
 
 #
 # Set sources
@@ -62,13 +62,13 @@ set(
 #
 # target creating
 #
-if (BUILD_STATIC_LIB)
+if (CPPJSON_STATIC_LIB)
     message (STATUS "Project configured as static library")
     add_library(CppJson STATIC)
 else()
     message (STATUS "Project configured as shared library (default)")
     add_library(CppJson SHARED)
-endif(BUILD_STATIC_LIB)
+endif(CPPJSON_STATIC_LIB)
 
 add_library(modules::CppJson ALIAS CppJson)
 
@@ -89,8 +89,7 @@ target_include_directories(CppJson PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
 #
 # Creating unit-test project
 #
-if(TESTING)
-    message(WARNING "Unit test project is not remaded to CMake")
-    # add_subdirectory(tests)
-endif(TESTING)
+if(CPPJSON_TESTING)
+    add_subdirectory(tests)
+endif(CPPJSON_TESTING)
 

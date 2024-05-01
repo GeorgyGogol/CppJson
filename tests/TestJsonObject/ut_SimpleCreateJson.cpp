@@ -21,9 +21,9 @@ TEST_F(TestJsonObject_SimpleCreateJson, Create)
     for (int i = 0; i < nProps; ++i) {
         o.add(props[i], vals[i]);
     }
-    ASSERT_EQ(nProps, o.count(), L"Some property was lost, count not equal total input properties");
+    ASSERT_EQ(nProps, o.count()) << "Some property was lost, count not equal total input properties";
 
     result = o.toString();
-    ASSERT_EQ(correctJsonStr, result, L"The generated string does not match the expected value");
+    ASSERT_EQ(correctJsonStr, result) << "The generated string does not match the expected value";
 }
 

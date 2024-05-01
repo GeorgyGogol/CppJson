@@ -11,7 +11,7 @@ file(GLOB
     UNIT_TESTS_SOURCES
     Test*/ut_*.cpp
 )
-list(REMOVE_ITEM UNIT_TESTS_SOURCES TestJsonObject/ut_AdditionalAddGetProperties.cpp)
+list(FILTER UNIT_TESTS_SOURCES EXCLUDE REGEX "TestJsonObject/ut_AdditionalAddGetProperties.cpp")
 
 #
 # Set additional sources
