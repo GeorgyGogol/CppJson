@@ -152,7 +152,7 @@ json::ObjectValueType::ObjectValueType(const char data[]) noexcept
 bool json::ObjectValueType::operator==(const char data[]) const noexcept
 {
     if (CurrentType != ValueTypes::String) return false;
-    int dataSize = sizeof(data); /// @todo Check this method
+    int dataSize = sizeof(data); /// @todo 7: Check size calc method
 
     if (StrData.size() != dataSize) return false;
 

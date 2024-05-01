@@ -31,7 +31,7 @@ void json::JsonArray::set(int pos, ObjectValueType value)
 
 json::ObjectValueType json::JsonArray::get(int pos) const
 {
-    /// @todo 1: Определиться, нужно ли здесь исключение или нет
+    /// @todo 1: РћРїСЂРµРґРµР»РёС‚СЊСЃСЏ, РЅСѓР¶РЅРѕ Р»Рё Р·РґРµСЃСЊ РёСЃРєР»СЋС‡РµРЅРёРµ РёР»Рё РЅРµС‚
     ObjectValueType out = Storage.at(pos);
     return out;
 }

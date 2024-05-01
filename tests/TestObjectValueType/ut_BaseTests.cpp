@@ -48,7 +48,7 @@ TEST_F(TestObjectValueType_BaseTests, CharInitMethod)
     ValideMethodsCheck.CheckConditionMethods(charObject, ValideMethodsCheck.getStringConditions());
     ASSERT_EQ(charObject.getStr(), std::string("char"));
 
-    /// @todo Корректное сравнение char*
+    /// @todo 8: РљРѕСЂСЂРµРєС‚РЅРѕРµ СЃСЂР°РІРЅРµРЅРёРµ char*
     //ASSERT_TRUE(charObject.getStr().c_str() == "char");
 }
 
